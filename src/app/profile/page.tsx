@@ -52,7 +52,7 @@ function KycStatusCard() {
     );
 }
 
-const iconMap = {
+const iconMap: { [key: string]: React.ReactNode } = {
     'Bank Account': <Landmark className="h-6 w-6 text-muted-foreground" />,
     'UPI': <Banknote className="h-6 w-6 text-muted-foreground" />,
     'Wallet': <Wallet className="h-6 w-6 text-muted-foreground" />,
