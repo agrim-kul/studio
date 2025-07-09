@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Banknote, Landmark, Wallet } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const LIVE_GOLD_PRICE = 6950.75; // per gram
 
@@ -32,7 +32,6 @@ function BuyForm() {
         toast({
             title: "Purchase Successful!",
             description: `You have successfully bought ${amountGold}g of gold for ₹${amountInr}.`,
-            variant: "default",
         });
     }
 
@@ -41,6 +40,7 @@ function BuyForm() {
             <div className="space-y-2">
                 <Label htmlFor="buy-inr">Amount in INR</Label>
                 <Input id="buy-inr" type="number" placeholder="e.g. ₹5000" value={amountInr} onChange={(e) => setAmountInr(e.target.value)} />
+                 <p className="text-xs text-muted-foreground">Minimum purchase of ₹99.</p>
             </div>
             <div className="text-center text-sm text-muted-foreground">You get approx. <span className="font-bold text-primary">{amountGold}g</span> of gold</div>
              <div className="space-y-2">
@@ -57,7 +57,7 @@ function BuyForm() {
                     ))}
                 </RadioGroup>
             </div>
-            <Button className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) <= 0}>
+            <Button className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) < 99}>
                 Buy Gold
             </Button>
         </div>
@@ -78,7 +78,6 @@ function SellForm() {
          toast({
             title: "Sale Successful!",
             description: `You have successfully sold ${amountGold}g of gold for ₹${amountInr}.`,
-            variant: "default",
         });
     }
 

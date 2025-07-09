@@ -9,7 +9,7 @@ export function RecentTransactions() {
   const recent = transactions.slice(0, 4);
 
   return (
-    <Card className="shadow-lg">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
             <CardTitle>Recent Activity</CardTitle>

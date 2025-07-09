@@ -34,14 +34,16 @@ import {
   LogOut,
   Moon,
   Sun,
+  Info,
 } from "lucide-react"
 import { ThemeProvider, useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/transactions", icon: ArrowLeftRight, label: "Transactions" },
   { href: "/profile", icon: User, label: "Profile" },
+  { href: "/about", icon: Info, label: "About Us" },
 ];
 
 function MainNav() {
@@ -117,9 +119,11 @@ function UserMenu() {
             <span>Settings</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Logout</span>
+        <DropdownMenuItem asChild>
+          <Link href="/" className="flex items-center w-full">
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Logout</span>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

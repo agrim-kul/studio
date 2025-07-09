@@ -1,6 +1,5 @@
 import { AppShell } from "@/components/app-shell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,7 +93,7 @@ export default function ProfilePage() {
     <AppShell>
       <div className="w-full">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold font-headline text-gray-900 dark:text-gray-100">My Profile</h1>
+          <h1 className="text-3xl font-bold font-headline text-foreground">My Profile</h1>
           <p className="text-muted-foreground">View and manage your account settings.</p>
         </header>
         
