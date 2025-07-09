@@ -31,7 +31,7 @@ function BuyForm() {
     const handleBuy = () => {
         toast({
             title: "Purchase Successful!",
-            description: `You have successfully bought ${amountGold}g of gold for ₹${amountInr}.`,
+            description: `You have successfully bought ${amountGold}g of gold for ₹${parseFloat(amountInr).toLocaleString('en-IN')}.`,
         });
     }
 
@@ -77,7 +77,7 @@ function SellForm() {
     const handleSell = () => {
          toast({
             title: "Sale Successful!",
-            description: `You have successfully sold ${amountGold}g of gold for ₹${amountInr}.`,
+            description: `You have successfully sold ${amountGold}g of gold for ₹${parseFloat(amountInr).toLocaleString('en-IN')}.`,
         });
     }
 
