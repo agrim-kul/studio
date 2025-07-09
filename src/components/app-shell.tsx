@@ -36,7 +36,7 @@ import {
   Sun,
   Info,
 } from "lucide-react"
-import { ThemeProvider, useTheme } from "next-themes"
+import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -130,34 +130,8 @@ function UserMenu() {
   );
 }
 
-// A wrapper to provide theme context
-const AppThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const provider = (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="dark"
-      disableTransitionOnChange
-    >
-      {children}
-    </ThemeProvider>
-  );
-
-  if (!mounted) {
-    return <div style={{ visibility: "hidden" }}>{provider}</div>;
-  }
-
-  return provider;
-};
-
 export function AppShell({ children }: { children:React.ReactNode }) {
   return (
-    <AppThemeProvider>
       <SidebarProvider>
         <Sidebar>
           <SidebarHeader>
@@ -179,6 +153,5 @@ export function AppShell({ children }: { children:React.ReactNode }) {
           <main className="flex-1 p-4 md:p-6">{children}</main>
         </SidebarInset>
       </SidebarProvider>
-    </AppThemeProvider>
   );
 }
