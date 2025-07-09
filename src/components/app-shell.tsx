@@ -37,7 +37,7 @@ import {
   Moon,
   Sun,
 } from "lucide-react"
-import { useTheme } from "next-themes"
+import { ThemeProvider, useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -106,7 +106,7 @@ function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
           <Avatar>
-            <AvatarImage src="https://placehold.co/40x40" alt="Ananya Sharma" />
+            <AvatarImage src="https://placehold.co/40x40" alt="Ananya Sharma" data-ai-hint="person" />
             <AvatarFallback>AS</AvatarFallback>
           </Avatar>
         </Button>
