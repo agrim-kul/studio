@@ -20,11 +20,11 @@ const paymentOptions = [
 
 function BuyForm() {
     const { toast } = useToast();
-    const [amountInr, setAmountInr] = useState('99');
+    const [amountInr, setAmountInr] = useState('100');
     
     const amountGold = useMemo(() => {
         const inr = parseFloat(amountInr);
-        if (isNaN(inr) || inr < 99) return '0.0000';
+        if (isNaN(inr) || inr <= 0) return '0.0000';
         return (inr / LIVE_GOLD_PRICE).toFixed(4);
     }, [amountInr]);
 
@@ -40,7 +40,7 @@ function BuyForm() {
         <div className="space-y-4">
             <div>
                 <Label htmlFor="buy-inr">Amount in INR</Label>
-                <Input id="buy-inr" type="number" placeholder="Min. ₹99" value={amountInr} onChange={(e) => setAmountInr(e.target.value)} />
+                <Input id="buy-inr" type="number" placeholder="e.g. ₹5000" value={amountInr} onChange={(e) => setAmountInr(e.target.value)} />
             </div>
             <div className="text-center text-sm text-muted-foreground">You get approx. <span className="font-bold text-primary">{amountGold}g</span> of gold</div>
              <div>
@@ -57,7 +57,7 @@ function BuyForm() {
                     ))}
                 </RadioGroup>
             </div>
-            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick={handleBuy} disabled={parseFloat(amountInr) < 99}>
+            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick={handleBuy} disabled={parseFloat(amountInr) <= 0}>
                 Buy Gold
             </Button>
         </div>
