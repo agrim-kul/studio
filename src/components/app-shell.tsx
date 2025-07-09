@@ -14,7 +14,6 @@ import {
   SidebarFooter,
   SidebarTrigger,
   SidebarInset,
-  useSidebar,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import {
@@ -30,7 +29,6 @@ import { Logo } from "@/components/logo"
 import {
   LayoutDashboard,
   ArrowLeftRight,
-  Sparkles,
   User,
   Settings,
   LogOut,
@@ -43,7 +41,6 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { href: "/", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/transactions", icon: ArrowLeftRight, label: "Transactions" },
-  { href: "/analysis", icon: Sparkles, label: "AI Analysis" },
   { href: "/profile", icon: User, label: "Profile" },
 ];
 
@@ -140,7 +137,7 @@ const AppThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const provider = (
     <ThemeProvider
       attribute="class"
-      defaultTheme="light"
+      defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
     >
@@ -176,7 +173,7 @@ export function AppShell({ children }: { children:React.ReactNode }) {
               <UserMenu />
             </div>
           </Header>
-          <main className="flex-1 p-4 md:p-8 lg:p-10">{children}</main>
+          <main className="flex-1 p-4 md:p-6">{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </AppThemeProvider>

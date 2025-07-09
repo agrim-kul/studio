@@ -37,13 +37,13 @@ function BuyForm() {
     }
 
     return (
-        <div className="space-y-4">
-            <div>
+        <div className="space-y-6">
+            <div className="space-y-2">
                 <Label htmlFor="buy-inr">Amount in INR</Label>
                 <Input id="buy-inr" type="number" placeholder="e.g. ₹5000" value={amountInr} onChange={(e) => setAmountInr(e.target.value)} />
             </div>
             <div className="text-center text-sm text-muted-foreground">You get approx. <span className="font-bold text-primary">{amountGold}g</span> of gold</div>
-             <div>
+             <div className="space-y-2">
                 <Label>Select Payment Method</Label>
                 <RadioGroup defaultValue="upi" className="grid grid-cols-3 gap-4 mt-2">
                     {paymentOptions.map(option => (
@@ -57,7 +57,7 @@ function BuyForm() {
                     ))}
                 </RadioGroup>
             </div>
-            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick={handleBuy} disabled={parseFloat(amountInr) <= 0}>
+            <Button className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) <= 0}>
                 Buy Gold
             </Button>
         </div>
@@ -83,13 +83,13 @@ function SellForm() {
     }
 
     return (
-         <div className="space-y-4">
-            <div>
+         <div className="space-y-6">
+            <div className="space-y-2">
                 <Label htmlFor="sell-gold">Amount in Grams</Label>
                 <Input id="sell-gold" type="number" placeholder="e.g., 1.5" value={amountGold} onChange={(e) => setAmountGold(e.target.value)} />
             </div>
             <div className="text-center text-sm text-muted-foreground">You get approx. <span className="font-bold text-primary">₹{amountInr}</span></div>
-            <div>
+            <div className="space-y-2">
                 <Label>Amount will be credited to:</Label>
                 <div className="flex items-center justify-between rounded-md border p-3 mt-2">
                     <div className="flex items-center gap-2">
@@ -102,7 +102,7 @@ function SellForm() {
                     <span className="text-xs font-semibold text-green-600">Primary</span>
                 </div>
             </div>
-            <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" onClick={handleSell} disabled={parseFloat(amountGold) <= 0}>
+            <Button className="w-full" variant="secondary" onClick={handleSell} disabled={parseFloat(amountGold) <= 0}>
                 Sell Gold
             </Button>
         </div>
@@ -111,7 +111,7 @@ function SellForm() {
 
 export function TradeForm() {
     return (
-        <Card className="shadow-lg">
+        <Card>
             <CardHeader>
                 <CardTitle>Quick Trade</CardTitle>
                 <CardDescription>Buy or sell gold instantly.</CardDescription>
@@ -122,10 +122,10 @@ export function TradeForm() {
                         <TabsTrigger value="buy">Buy</TabsTrigger>
                         <TabsTrigger value="sell">Sell</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="buy" className="mt-4">
+                    <TabsContent value="buy" className="mt-6">
                         <BuyForm />
                     </TabsContent>
-                    <TabsContent value="sell" className="mt-4">
+                    <TabsContent value="sell" className="mt-6">
                         <SellForm />
                     </TabsContent>
                 </Tabs>
