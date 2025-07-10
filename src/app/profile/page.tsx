@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { userProfile as staticUserProfile, paymentMethods } from "@/lib/data";
-import { Banknote, Landmark, Wallet, ShieldCheck, Pencil, ShieldAlert } from "lucide-react";
+import { Banknote, Landmark, Wallet, ShieldCheck, Pencil, ShieldAlert, ShieldClose } from "lucide-react";
 import type { UserProfile } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { useKycStatus } from '@/hooks/use-kyc-status';
@@ -40,7 +40,7 @@ function ProfileDetailsCard({ profile }: { profile: UserProfile }) {
     )
 }
 
-function KycStatusCard({ kycStatus, onVerify }: { kycStatus: UserProfile['kycStatus'], onVerify: () => void }) {
+function KycStatusCard({ kycStatus, onVerify, onUnverify }: { kycStatus: UserProfile['kycStatus'], onVerify: () => void, onUnverify: () => void }) {
     const isVerified = kycStatus === 'Verified';
 
     return (
@@ -64,13 +64,19 @@ function KycStatusCard({ kycStatus, onVerify }: { kycStatus: UserProfile['kycSta
                     </p>
                 </div>
             </CardContent>
-            {!isVerified && (
-                <CardFooter>
+            <CardFooter>
+                {!isVerified ? (
                     <Button variant="secondary" className="w-full" onClick={onVerify}>
+                        <ShieldCheck className="mr-2 h-4 w-4" />
                         Verify KYC (for testing)
                     </Button>
-                </CardFooter>
-            )}
+                ) : (
+                    <Button variant="destructive" className="w-full" onClick={onUnverify}>
+                        <ShieldClose className="mr-2 h-4 w-4" />
+                        Unverify KYC (for testing)
+                    </Button>
+                )}
+            </CardFooter>
         </Card>
     );
 }
@@ -119,11 +125,20 @@ export default function ProfilePage() {
 
     const handleDummyVerify = () => {
         sessionStorage.setItem('kycStatus', 'Verified');
-        // Dispatch a custom event to notify other components of the change
         window.dispatchEvent(new Event('sessionStorageChange'));
         toast({
             title: "KYC Verified (Test Mode)",
             description: "Your account is now verified for this session.",
+        });
+    }
+
+    const handleDummyUnverify = () => {
+        sessionStorage.setItem('kycStatus', 'Pending');
+        window.dispatchEvent(new Event('sessionStorageChange'));
+        toast({
+            title: "KYC Status Reset (Test Mode)",
+            description: "Your account status has been reset to 'Pending'.",
+            variant: "destructive",
         });
     }
 
@@ -140,7 +155,11 @@ export default function ProfilePage() {
                 <ProfileDetailsCard profile={userProfileData} />
             </div>
             <div className="space-y-8">
-                <KycStatusCard kycStatus={kycStatus} onVerify={handleDummyVerify} />
+                <KycStatusCard 
+                    kycStatus={kycStatus} 
+                    onVerify={handleDummyVerify}
+                    onUnverify={handleDummyUnverify} 
+                />
                 <PaymentMethodsCard />
             </div>
         </div>
