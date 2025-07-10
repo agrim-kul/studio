@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -6,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 
 export default function KycPage() {
   const router = useRouter();
@@ -17,22 +18,26 @@ export default function KycPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
-    // Here you would typically handle form submission, e.g., API call to submit KYC data.
-    // For this simulation, we'll just show a success toast and redirect.
-
     toast({
       title: "KYC Submitted!",
       description: "Your documents have been submitted for verification.",
     });
 
-    // In a real app, you would update the user's KYC status.
-    // We'll simulate this by just navigating away.
     if (from === 'buy') {
-      router.push('/dashboard'); // Go back to dashboard to retry buying
+      router.push('/dashboard'); 
     } else {
-      router.push('/dashboard'); // Default redirect
+      router.push('/dashboard'); 
     }
   };
+  
+  const handleDummyVerify = () => {
+    sessionStorage.setItem('kycStatus', 'Verified');
+    toast({
+      title: "KYC Verified (Test Mode)",
+      description: "You can now proceed with your transactions.",
+    });
+    router.push('/dashboard');
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -68,10 +73,14 @@ export default function KycPage() {
             </Button>
           </form>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex-col gap-4">
             <Button variant="outline" className="w-full" onClick={() => router.back()}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Go Back
+            </Button>
+            <Button variant="secondary" className="w-full" onClick={handleDummyVerify}>
+                <ShieldCheck className="mr-2 h-4 w-4" />
+                Verify KYC (for testing)
             </Button>
         </CardFooter>
       </Card>

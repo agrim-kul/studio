@@ -1,3 +1,4 @@
+
 import type { UserProfile, Transaction, PaymentMethod } from './types';
 
 // In a real app, you would fetch this from a database.
@@ -5,7 +6,7 @@ import type { UserProfile, Transaction, PaymentMethod } from './types';
 export const userProfile: UserProfile = {
   name: 'Ananya Sharma',
   email: 'ananya.sharma@example.com',
-  kycStatus: 'Pending', // Changed to 'Pending' to trigger KYC flow
+  kycStatus: 'Pending', // Default status is Pending
   memberSince: '2022-08-15',
   goldBalance: 15.75, // in grams
   accountValue: 109586.25, // in INR

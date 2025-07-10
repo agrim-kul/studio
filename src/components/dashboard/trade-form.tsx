@@ -1,6 +1,7 @@
+
 'use client'
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -10,7 +11,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Banknote, Landmark, Wallet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { userProfile } from '@/lib/data';
+import { userProfile as staticUserProfile } from '@/lib/data';
+import type { UserProfile } from '@/lib/types';
 
 const LIVE_GOLD_PRICE = 9855.00; // per gram
 
@@ -20,10 +22,25 @@ const paymentOptions = [
     { id: 'wallet', name: 'Wallet', icon: <Wallet className="h-5 w-5" /> },
 ];
 
+function useKycStatus() {
+    const [kycStatus, setKycStatus] = useState<UserProfile['kycStatus']>(staticUserProfile.kycStatus);
+
+    useEffect(() => {
+        const sessionStatus = sessionStorage.getItem('kycStatus') as UserProfile['kycStatus'];
+        if (sessionStatus) {
+            setKycStatus(sessionStatus);
+        }
+    }, []);
+
+    return kycStatus;
+}
+
+
 function BuyForm() {
     const { toast } = useToast();
     const router = useRouter();
     const [amountInr, setAmountInr] = useState('100');
+    const kycStatus = useKycStatus();
     
     const amountGold = useMemo(() => {
         const inr = parseFloat(amountInr);
@@ -32,7 +49,7 @@ function BuyForm() {
     }, [amountInr]);
 
     const handleBuy = () => {
-        if (userProfile.kycStatus !== 'Verified') {
+        if (kycStatus !== 'Verified') {
             router.push('/kyc?from=buy');
             return;
         }
@@ -69,7 +86,7 @@ function BuyForm() {
                 </RadioGroup>
             </div>
             <Button size="lg" className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) < 99}>
-                {userProfile.kycStatus !== 'Verified' ? 'Complete KYC to Buy' : 'Buy Gold'}
+                {kycStatus !== 'Verified' ? 'Complete KYC to Buy' : 'Buy Gold'}
             </Button>
         </div>
     );

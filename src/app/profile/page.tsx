@@ -1,13 +1,19 @@
+
+'use client'
+
+import { useState, useEffect } from 'react';
 import { AppShell } from "@/components/app-shell";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { userProfile, paymentMethods } from "@/lib/data";
-import { Banknote, Landmark, Wallet, ShieldCheck, Pencil } from "lucide-react";
+import { userProfile as staticUserProfile, paymentMethods } from "@/lib/data";
+import { Banknote, Landmark, Wallet, ShieldCheck, Pencil, ShieldAlert } from "lucide-react";
+import type { UserProfile } from '@/lib/types';
+import { useToast } from '@/hooks/use-toast';
 
-function ProfileDetailsCard() {
+function ProfileDetailsCard({ profile }: { profile: UserProfile }) {
     return (
          <Card>
             <CardHeader>
@@ -17,15 +23,15 @@ function ProfileDetailsCard() {
             <CardContent className="space-y-4">
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" defaultValue={userProfile.name} />
+                    <Input id="name" defaultValue={profile.name} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" defaultValue={userProfile.email} />
+                    <Input id="email" type="email" defaultValue={profile.email} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="memberSince">Member Since</Label>
-                    <Input id="memberSince" defaultValue={new Date(userProfile.memberSince).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })} readOnly />
+                    <Input id="memberSince" defaultValue={new Date(profile.memberSince).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })} readOnly />
                 </div>
                 <Button>Update Profile</Button>
             </CardContent>
@@ -33,7 +39,9 @@ function ProfileDetailsCard() {
     )
 }
 
-function KycStatusCard() {
+function KycStatusCard({ profile, onVerify }: { profile: UserProfile, onVerify: () => void }) {
+    const isVerified = profile.kycStatus === 'Verified';
+
     return (
         <Card>
             <CardHeader>
@@ -41,12 +49,27 @@ function KycStatusCard() {
                 <CardDescription>Your account verification status.</CardDescription>
             </CardHeader>
             <CardContent className="flex items-center gap-4">
-                <ShieldCheck className="h-10 w-10 text-green-500" />
+                {isVerified ? (
+                    <ShieldCheck className="h-10 w-10 text-green-500" />
+                ) : (
+                    <ShieldAlert className="h-10 w-10 text-yellow-500" />
+                )}
                 <div>
-                    <p className="font-semibold text-lg">{userProfile.kycStatus}</p>
-                    <p className="text-sm text-muted-foreground">Your account is fully verified and secure.</p>
+                    <p className={`font-semibold text-lg ${isVerified ? 'text-green-600' : 'text-yellow-600'}`}>
+                        {profile.kycStatus}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                        {isVerified ? "Your account is fully verified." : "Verification is pending."}
+                    </p>
                 </div>
             </CardContent>
+            {!isVerified && (
+                <CardFooter>
+                    <Button variant="secondary" className="w-full" onClick={onVerify}>
+                        Verify KYC (for testing)
+                    </Button>
+                </CardFooter>
+            )}
         </Card>
     );
 }
@@ -89,6 +112,25 @@ function PaymentMethodsCard() {
 
 
 export default function ProfilePage() {
+    const [userProfile, setUserProfile] = useState<UserProfile>(staticUserProfile);
+    const { toast } = useToast();
+
+    useEffect(() => {
+        const kycStatus = sessionStorage.getItem('kycStatus') as UserProfile['kycStatus'];
+        if (kycStatus) {
+            setUserProfile(prev => ({ ...prev, kycStatus }));
+        }
+    }, []);
+
+    const handleDummyVerify = () => {
+        sessionStorage.setItem('kycStatus', 'Verified');
+        setUserProfile(prev => ({ ...prev, kycStatus: 'Verified' }));
+        toast({
+            title: "KYC Verified (Test Mode)",
+            description: "Your account is now verified for this session.",
+        });
+    }
+
   return (
     <AppShell>
       <div className="w-full">
@@ -99,10 +141,10 @@ export default function ProfilePage() {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-                <ProfileDetailsCard />
+                <ProfileDetailsCard profile={userProfile} />
             </div>
             <div className="space-y-8">
-                <KycStatusCard />
+                <KycStatusCard profile={userProfile} onVerify={handleDummyVerify} />
                 <PaymentMethodsCard />
             </div>
         </div>
