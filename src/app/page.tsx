@@ -61,7 +61,8 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container grid lg:grid-cols-2 gap-12 items-center py-20 text-center lg:text-left">
+        <section className="w-full py-20">
+          <div className="container grid lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
             <div>
                 <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Invest in Gold, Simply & Securely</h1>
                 <p className="mt-4 text-lg text-muted-foreground">
@@ -86,6 +87,7 @@ export default function LandingPage() {
                     className="rounded-xl shadow-lg"
                   />
             </div>
+          </div>
         </section>
 
         {/* Price Card Section */}
@@ -122,7 +124,7 @@ export default function LandingPage() {
                         <Card key={index}>
                             <CardHeader>
                                 <CardTitle className="font-headline">{offer.title}</CardTitle>
-                            </CardHeader>
+                            </Header>
                             <CardContent>
                                 <p className="text-muted-foreground">{offer.description}</p>
                             </CardContent>
