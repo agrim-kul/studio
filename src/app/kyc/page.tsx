@@ -59,20 +59,28 @@ function KycForm() {
             <Input id="pan" placeholder="ABCDE1234F" required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="pan-upload">Upload PAN Card</Label>
-            <div className="relative">
-              <Input id="pan-upload" type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20" required />
-            </div>
+            <Label>Upload PAN Card</Label>
+            <Button asChild variant="outline" className="w-full justify-start gap-2 text-muted-foreground font-normal">
+                <label htmlFor="pan-upload" className="cursor-pointer w-full">
+                    <Upload className="h-4 w-4" />
+                    <span>Choose File...</span>
+                    <Input id="pan-upload" type="file" className="sr-only" required />
+                </label>
+            </Button>
           </div>
           <div className="space-y-2">
             <Label htmlFor="aadhaar">Aadhaar Card Number</Label>
             <Input id="aadhaar" placeholder="1234 5678 9012" required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="aadhaar-upload">Upload Aadhaar Card</Label>
-             <div className="relative">
-              <Input id="aadhaar-upload" type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20" required />
-            </div>
+            <Label>Upload Aadhaar Card</Label>
+            <Button asChild variant="outline" className="w-full justify-start gap-2 text-muted-foreground font-normal">
+                <label htmlFor="aadhaar-upload" className="cursor-pointer w-full">
+                    <Upload className="h-4 w-4" />
+                    <span>Choose File...</span>
+                    <Input id="aadhaar-upload" type="file" className="sr-only" required />
+                </label>
+            </Button>
           </div>
           <Button type="submit" className="w-full">
             Submit for Verification
