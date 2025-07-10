@@ -1,9 +1,8 @@
-'use client'
 
-import { useState } from 'react';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,8 +17,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-
+} from "@/components/ui/alert-dialog";
+import { useState } from 'react';
 
 function LoginForm() {
   return (
@@ -92,10 +91,44 @@ function SignupForm() {
   );
 }
 
-export default function AuthenticationPage() {
+function AuthenticationContent() {
+  'use client'
   const searchParams = useSearchParams();
   const defaultTab = searchParams.get('tab') || 'login';
 
+  return (
+    <Tabs defaultValue={defaultTab} className="w-full">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="login">Login</TabsTrigger>
+        <TabsTrigger value="signup">Sign Up</TabsTrigger>
+      </TabsList>
+      <TabsContent value="login">
+        <Card>
+          <CardHeader>
+            <CardTitle>Welcome Back!</CardTitle>
+            <CardDescription>Enter your credentials to access your account.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <LoginForm />
+          </CardContent>
+        </Card>
+      </TabsContent>
+      <TabsContent value="signup">
+        <Card>
+          <CardHeader>
+            <CardTitle>Create an Account</CardTitle>
+            <CardDescription>Join us and start your investment journey today.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <SignupForm />
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
+  );
+}
+
+export default function AuthenticationPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
@@ -106,34 +139,9 @@ export default function AuthenticationPage() {
             </span>
           </Link>
         </div>
-        <Tabs defaultValue={defaultTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
-          </TabsList>
-          <TabsContent value="login">
-            <Card>
-              <CardHeader>
-                <CardTitle>Welcome Back!</CardTitle>
-                <CardDescription>Enter your credentials to access your account.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <LoginForm />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="signup">
-            <Card>
-              <CardHeader>
-                <CardTitle>Create an Account</CardTitle>
-                <CardDescription>Join us and start your investment journey today.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SignupForm />
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AuthenticationContent />
+        </Suspense>
       </div>
     </div>
   );
