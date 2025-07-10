@@ -23,7 +23,7 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2">
               <div className="relative h-64 md:h-auto">
                 <Image 
-                  src="https://i.ibb.co/R9yPZJj/skj-vdn-showroom.jpg"
+                  src="https://i.ibb.co/B5z0MbzV/fbf0aba0-072c-4d53-8011-cd0dc0d625b0.png"
                   alt="SKJ Jwellers Storefront"
                   data-ai-hint="jewelry store"
                   fill
