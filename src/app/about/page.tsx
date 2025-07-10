@@ -23,8 +23,9 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2">
               <div className="relative h-64 md:h-auto">
                 <Image 
-                  src="https://skj-bucket-bd.s3.amazonaws.com/media/skj_vdn_showroom.jpg" 
+                  src="https://placehold.co/800x600.png"
                   alt="SKJ Jwellers Storefront"
+                  data-ai-hint="jewelry store"
                   fill
                   style={{ objectFit: 'cover' }}
                 />
