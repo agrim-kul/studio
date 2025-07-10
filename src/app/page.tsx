@@ -84,7 +84,7 @@ export default function LandingPage() {
                     alt="Gold coins and jewelry"
                     fill
                     data-ai-hint="gold coins jewelry"
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'contain' }}
                     className="rounded-xl shadow-lg"
                   />
             </div>
