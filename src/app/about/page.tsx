@@ -23,7 +23,7 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2">
               <div className="relative h-64 md:h-auto">
                 <Image 
-                  src="https://content.jdmagicbox.com/comp/sri_ganganagar-rajasthan/v8/9999px154.x154.201009112433.s5v8/catalogue/skj-a-complete-jewellery-store-sri-ganganagar-rajasthan-1tlamz77qw.jpg" 
+                  src="https://skj-bucket-bd.s3.amazonaws.com/media/skj_vdn_showroom.jpg" 
                   alt="SKJ Jwellers Storefront"
                   fill
                   style={{ objectFit: 'cover' }}

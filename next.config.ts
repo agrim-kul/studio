@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         hostname: 'content.jdmagicbox.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'skj-bucket-bd.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
