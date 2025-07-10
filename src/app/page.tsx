@@ -80,10 +80,10 @@ export default function LandingPage() {
             </div>
             <div className="relative h-64 sm:h-80 w-full">
                  <Image 
-                    src="https://storage.googleapis.com/project-spark-b6b02.appspot.com/generated/7e155b9e-b997-4228-a6d1-4470d04b6b67.png" 
-                    alt="Digital Gold bar"
+                    src="https://i.ibb.co/NddQq0sv/file-000000004f9061f5b7ecd6e4f76cbdc8-1.png" 
+                    alt="Gold coins and jewelry"
                     fill
-                    data-ai-hint="digital gold"
+                    data-ai-hint="gold coins jewelry"
                     style={{ objectFit: 'cover' }}
                     className="rounded-xl shadow-lg"
                   />
