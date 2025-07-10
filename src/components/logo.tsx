@@ -7,6 +7,6 @@ export const Logo = ({ className }: { className?: string }) => (
         <path d="M2 17l10 5 10-5"></path>
         <path d="M2 12l10 5 10-5"></path>
     </svg>
-    <span className="text-sidebar-foreground">SKJ <span className="text-primary">Jwellers</span></span>
+    <span className="text-foreground">SKJ <span className="text-primary">Jwellers</span></span>
   </div>
 );

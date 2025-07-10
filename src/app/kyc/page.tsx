@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { AppShell } from '@/components/app-shell'; 
 import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft } from 'lucide-react';
 
 export default function KycPage() {
   const router = useRouter();
@@ -68,6 +68,12 @@ export default function KycPage() {
             </Button>
           </form>
         </CardContent>
+        <CardFooter>
+            <Button variant="outline" className="w-full" onClick={() => router.back()}>
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Go Back
+            </Button>
+        </CardFooter>
       </Card>
     </div>
   );
