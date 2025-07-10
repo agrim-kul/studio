@@ -5,7 +5,7 @@ import { TrendingUp } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export function PriceCard() {
-  const [price, setPrice] = useState(7285.50);
+  const [price, setPrice] = useState(9855.00);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   useEffect(() => {

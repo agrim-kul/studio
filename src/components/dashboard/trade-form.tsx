@@ -12,7 +12,7 @@ import { Banknote, Landmark, Wallet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { userProfile } from '@/lib/data';
 
-const LIVE_GOLD_PRICE = 7285.50; // per gram
+const LIVE_GOLD_PRICE = 9855.00; // per gram
 
 const paymentOptions = [
     { id: 'upi', name: 'UPI', icon: <Banknote className="h-5 w-5" /> },
@@ -68,7 +68,7 @@ function BuyForm() {
                     ))}
                 </RadioGroup>
             </div>
-            <Button className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) < 99}>
+            <Button size="lg" className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) < 99}>
                 {userProfile.kycStatus !== 'Verified' ? 'Complete KYC to Buy' : 'Buy Gold'}
             </Button>
         </div>
@@ -112,7 +112,7 @@ function SellForm() {
                     <span className="text-xs font-semibold text-green-600">Primary</span>
                 </div>
             </div>
-            <Button className="w-full" variant="secondary" onClick={handleSell} disabled={parseFloat(amountGold) <= 0}>
+            <Button size="lg" className="w-full" variant="secondary" onClick={handleSell} disabled={parseFloat(amountGold) <= 0}>
                 Sell Gold
             </Button>
         </div>
