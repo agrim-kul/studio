@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Banknote, Landmark, Wallet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { userProfile } from '@/lib/data';
 
 const LIVE_GOLD_PRICE = 6950.75; // per gram
 
@@ -20,6 +22,7 @@ const paymentOptions = [
 
 function BuyForm() {
     const { toast } = useToast();
+    const router = useRouter();
     const [amountInr, setAmountInr] = useState('100');
     
     const amountGold = useMemo(() => {
@@ -29,10 +32,18 @@ function BuyForm() {
     }, [amountInr]);
 
     const handleBuy = () => {
+        if (userProfile.kycStatus !== 'Verified') {
+            router.push('/kyc?from=buy');
+            return;
+        }
+
         toast({
-            title: "Purchase Successful!",
-            description: `You have successfully bought ${amountGold}g of gold for ₹${parseFloat(amountInr).toLocaleString('en-IN')}.`,
+            title: "Purchase Processing!",
+            description: `Your purchase of ${amountGold}g of gold for ₹${parseFloat(amountInr).toLocaleString('en-IN')} is being processed.`,
         });
+        
+        // Navigate to confirmation page with details
+        router.push(`/purchase-confirmation?amountInr=${amountInr}&amountGold=${amountGold}`);
     }
 
     return (
@@ -58,7 +69,7 @@ function BuyForm() {
                 </RadioGroup>
             </div>
             <Button className="w-full" onClick={handleBuy} disabled={parseFloat(amountInr) < 99}>
-                Buy Gold
+                {userProfile.kycStatus !== 'Verified' ? 'Complete KYC to Buy' : 'Buy Gold'}
             </Button>
         </div>
     );

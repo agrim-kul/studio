@@ -20,30 +20,34 @@ export function RecentTransactions() {
         </Button>
       </CardHeader>
       <CardContent>
-        <ul className="space-y-4">
-          {recent.map((tx) => (
-            <li key={tx.id} className="flex items-center">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
-                {tx.type === 'Buy' ? (
-                  <ArrowDownLeft className="h-5 w-5 text-green-500" />
-                ) : (
-                  <ArrowUpRight className="h-5 w-5 text-red-500" />
-                )}
-              </div>
-              <div className="ml-4 flex-1">
-                <p className="font-medium">{tx.type} Gold</p>
-                <p className="text-sm text-muted-foreground">{new Date(tx.date).toLocaleDateString('en-IN', { month: 'long', day: 'numeric' })}</p>
-              </div>
-              <div className={cn(
-                  "font-semibold text-right",
-                  tx.type === 'Buy' ? 'text-green-600' : 'text-red-600'
-              )}>
-                <p>₹{tx.amountINR.toLocaleString('en-IN')}</p>
-                <p className="text-xs font-normal text-muted-foreground">{tx.amountGold.toFixed(3)}g</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {recent.length > 0 ? (
+          <ul className="space-y-4">
+            {recent.map((tx) => (
+              <li key={tx.id} className="flex items-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
+                  {tx.type === 'Buy' ? (
+                    <ArrowDownLeft className="h-5 w-5 text-green-500" />
+                  ) : (
+                    <ArrowUpRight className="h-5 w-5 text-red-500" />
+                  )}
+                </div>
+                <div className="ml-4 flex-1">
+                  <p className="font-medium">{tx.type} Gold</p>
+                  <p className="text-sm text-muted-foreground">{new Date(tx.date).toLocaleDateString('en-IN', { month: 'long', day: 'numeric' })}</p>
+                </div>
+                <div className={cn(
+                    "font-semibold text-right",
+                    tx.type === 'Buy' ? 'text-green-600' : 'text-red-600'
+                )}>
+                  <p>₹{tx.amountINR.toLocaleString('en-IN')}</p>
+                  <p className="text-xs font-normal text-muted-foreground">{tx.amountGold.toFixed(3)}g</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-muted-foreground text-sm text-center py-4">No recent transactions.</p>
+        )}
       </CardContent>
     </Card>
   );

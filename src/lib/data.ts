@@ -1,9 +1,11 @@
 import type { UserProfile, Transaction, PaymentMethod } from './types';
 
+// In a real app, you would fetch this from a database.
+// To simulate KYC flow, change kycStatus to 'Pending' or 'Rejected'.
 export const userProfile: UserProfile = {
   name: 'Ananya Sharma',
   email: 'ananya.sharma@example.com',
-  kycStatus: 'Verified',
+  kycStatus: 'Pending', // Changed to 'Pending' to trigger KYC flow
   memberSince: '2022-08-15',
   goldBalance: 15.75, // in grams
   accountValue: 109586.25, // in INR
