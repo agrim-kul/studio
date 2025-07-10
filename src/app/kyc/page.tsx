@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -32,6 +33,8 @@ export default function KycPage() {
   
   const handleDummyVerify = () => {
     sessionStorage.setItem('kycStatus', 'Verified');
+    // Dispatch a custom event to notify other components of the change
+    window.dispatchEvent(new Event('sessionStorageChange'));
     toast({
       title: "KYC Verified (Test Mode)",
       description: "You can now proceed with your transactions.",

@@ -12,6 +12,7 @@ import { userProfile as staticUserProfile, paymentMethods } from "@/lib/data";
 import { Banknote, Landmark, Wallet, ShieldCheck, Pencil, ShieldAlert } from "lucide-react";
 import type { UserProfile } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
+import { useKycStatus } from '@/hooks/use-kyc-status';
 
 function ProfileDetailsCard({ profile }: { profile: UserProfile }) {
     return (
@@ -39,8 +40,8 @@ function ProfileDetailsCard({ profile }: { profile: UserProfile }) {
     )
 }
 
-function KycStatusCard({ profile, onVerify }: { profile: UserProfile, onVerify: () => void }) {
-    const isVerified = profile.kycStatus === 'Verified';
+function KycStatusCard({ kycStatus, onVerify }: { kycStatus: UserProfile['kycStatus'], onVerify: () => void }) {
+    const isVerified = kycStatus === 'Verified';
 
     return (
         <Card>
@@ -56,7 +57,7 @@ function KycStatusCard({ profile, onVerify }: { profile: UserProfile, onVerify: 
                 )}
                 <div>
                     <p className={`font-semibold text-lg ${isVerified ? 'text-green-600' : 'text-yellow-600'}`}>
-                        {profile.kycStatus}
+                        {kycStatus}
                     </p>
                     <p className="text-sm text-muted-foreground">
                         {isVerified ? "Your account is fully verified." : "Verification is pending."}
@@ -112,19 +113,14 @@ function PaymentMethodsCard() {
 
 
 export default function ProfilePage() {
-    const [userProfile, setUserProfile] = useState<UserProfile>(staticUserProfile);
+    const [userProfileData] = useState<UserProfile>(staticUserProfile);
+    const kycStatus = useKycStatus();
     const { toast } = useToast();
-
-    useEffect(() => {
-        const kycStatus = sessionStorage.getItem('kycStatus') as UserProfile['kycStatus'];
-        if (kycStatus) {
-            setUserProfile(prev => ({ ...prev, kycStatus }));
-        }
-    }, []);
 
     const handleDummyVerify = () => {
         sessionStorage.setItem('kycStatus', 'Verified');
-        setUserProfile(prev => ({ ...prev, kycStatus: 'Verified' }));
+        // Dispatch a custom event to notify other components of the change
+        window.dispatchEvent(new Event('sessionStorageChange'));
         toast({
             title: "KYC Verified (Test Mode)",
             description: "Your account is now verified for this session.",
@@ -141,10 +137,10 @@ export default function ProfilePage() {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-                <ProfileDetailsCard profile={userProfile} />
+                <ProfileDetailsCard profile={userProfileData} />
             </div>
             <div className="space-y-8">
-                <KycStatusCard profile={userProfile} onVerify={handleDummyVerify} />
+                <KycStatusCard kycStatus={kycStatus} onVerify={handleDummyVerify} />
                 <PaymentMethodsCard />
             </div>
         </div>

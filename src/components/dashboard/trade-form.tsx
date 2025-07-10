@@ -1,18 +1,17 @@
 
 'use client'
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Banknote, Landmark, Wallet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { userProfile as staticUserProfile } from '@/lib/data';
-import type { UserProfile } from '@/lib/types';
+import { useKycStatus } from '@/hooks/use-kyc-status';
 
 const LIVE_GOLD_PRICE = 9855.00; // per gram
 
@@ -21,20 +20,6 @@ const paymentOptions = [
     { id: 'netbanking', name: 'Net Banking', icon: <Landmark className="h-5 w-5" /> },
     { id: 'wallet', name: 'Wallet', icon: <Wallet className="h-5 w-5" /> },
 ];
-
-function useKycStatus() {
-    const [kycStatus, setKycStatus] = useState<UserProfile['kycStatus']>(staticUserProfile.kycStatus);
-
-    useEffect(() => {
-        const sessionStatus = sessionStorage.getItem('kycStatus') as UserProfile['kycStatus'];
-        if (sessionStatus) {
-            setKycStatus(sessionStatus);
-        }
-    }, []);
-
-    return kycStatus;
-}
-
 
 function BuyForm() {
     const { toast } = useToast();
