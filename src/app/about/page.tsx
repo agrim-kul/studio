@@ -23,11 +23,10 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2">
               <div className="relative h-64 md:h-auto">
                 <Image 
-                  src="https://placehold.co/600x400.png" 
-                  alt="Jewelry workshop"
+                  src="https://content.jdmagicbox.com/comp/sri_ganganagar-rajasthan/v8/9999px154.x154.201009112433.s5v8/catalogue/skj-a-complete-jewellery-store-sri-ganganagar-rajasthan-1tlamz77qw.jpg" 
+                  alt="SKJ Jwellers Storefront"
                   fill
                   style={{ objectFit: 'cover' }}
-                  data-ai-hint="jewelry workshop"
                 />
               </div>
               <div className="p-8">
