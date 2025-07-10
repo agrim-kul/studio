@@ -125,7 +125,7 @@ export default function LandingPage() {
                         <Card key={index}>
                             <CardHeader>
                                 <CardTitle className="font-headline">{offer.title}</CardTitle>
-                            </Header>
+                            </CardHeader>
                             <CardContent>
                                 <p className="text-muted-foreground">{offer.description}</p>
                             </CardContent>
