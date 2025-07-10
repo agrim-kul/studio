@@ -56,11 +56,11 @@ function BuyForm() {
             <div className="text-center text-sm text-muted-foreground">You get approx. <span className="font-bold text-primary">{amountGold}g</span> of gold</div>
              <div className="space-y-2">
                 <Label>Select Payment Method</Label>
-                <RadioGroup defaultValue="upi" className="grid grid-cols-3 gap-4 mt-2">
+                <RadioGroup defaultValue="upi" className="grid grid-cols-3 gap-2 sm:gap-4 mt-2">
                     {paymentOptions.map(option => (
                         <div key={option.id}>
                             <RadioGroupItem value={option.id} id={option.id} className="peer sr-only" />
-                            <Label htmlFor={option.id} className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                            <Label htmlFor={option.id} className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 sm:p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary text-xs sm:text-sm">
                                 {option.icon}
                                 {option.name}
                             </Label>

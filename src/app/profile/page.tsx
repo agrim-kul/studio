@@ -71,7 +71,7 @@ function PaymentMethodsCard() {
                             <div className="flex items-center gap-3">
                                 {iconMap[method.type]}
                                 <div>
-                                    <p className="font-semibold">{method.provider} {method.isPrimary && <Badge variant="outline" className="ml-2 border-green-600 text-green-600">Primary</Badge>}</p>
+                                    <p className="font-semibold text-base sm:text-sm">{method.provider} {method.isPrimary && <Badge variant="outline" className="ml-2 border-green-600 text-green-600">Primary</Badge>}</p>
                                     <p className="text-sm text-muted-foreground">{method.details}</p>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@ export default function ProfilePage() {
     <AppShell>
       <div className="w-full">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold font-headline text-foreground">My Profile</h1>
+          <h1 className="text-2xl md:text-3xl font-bold font-headline text-foreground">My Profile</h1>
           <p className="text-muted-foreground">View and manage your account settings.</p>
         </header>
         

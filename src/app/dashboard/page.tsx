@@ -10,7 +10,7 @@ export default function DashboardPage() {
     <AppShell>
       <div className="w-full space-y-6">
         <header>
-          <h1 className="text-3xl font-bold font-headline text-foreground">Dashboard</h1>
+          <h1 className="text-2xl md:text-3xl font-bold font-headline text-foreground">Dashboard</h1>
           <p className="text-muted-foreground">Welcome back, Ananya!</p>
         </header>
         

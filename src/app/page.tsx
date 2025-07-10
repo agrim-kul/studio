@@ -47,7 +47,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
           <Logo />
           <div className="flex items-center gap-2">
             <Button variant="ghost" asChild>
@@ -62,14 +62,14 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-20">
-          <div className="container grid lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
-            <div>
-                <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Invest in Gold, Simply & Securely</h1>
-                <p className="mt-4 text-lg text-muted-foreground">
+        <section className="w-full py-12 md:py-20 lg:py-24">
+          <div className="container px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+                <h1 className="text-3xl md:text-5xl font-bold font-headline text-primary">Invest in Gold, Simply & Securely</h1>
+                <p className="mt-4 text-md md:text-lg text-muted-foreground">
                     Buy, sell, and manage 24K digital gold with SKJ Jwellers. Start your investment journey with as little as ₹1.
                 </p>
-                <div className="mt-8 flex gap-4 justify-center lg:justify-start">
+                <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <Button size="lg" asChild>
                         <Link href="/auth?tab=signup">Get Started</Link>
                     </Button>
@@ -78,7 +78,7 @@ export default function LandingPage() {
                     </Button>
                 </div>
             </div>
-            <div className="relative h-80 w-full">
+            <div className="relative h-64 sm:h-80 w-full">
                  <Image 
                     src="https://placehold.co/600x400.png" 
                     alt="Gold coins and bars"
@@ -92,14 +92,14 @@ export default function LandingPage() {
         </section>
 
         {/* Price Card Section */}
-        <section className="container">
+        <section className="container px-4 sm:px-6 lg:px-8">
             <PriceCard />
         </section>
 
         {/* Features Section */}
-        <section id="learn-more" className="container py-20">
+        <section id="learn-more" className="container py-12 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold font-headline">Why Choose SKJ Jwellers?</h2>
+                <h2 className="text-2xl md:text-3xl font-bold font-headline">Why Choose SKJ Jwellers?</h2>
                 <p className="mt-2 text-muted-foreground">The most trusted platform for digital gold investment.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
@@ -114,17 +114,17 @@ export default function LandingPage() {
         </section>
         
         {/* Offers Section */}
-        <section className="bg-secondary/50 py-20">
-            <div className="container">
+        <section className="bg-secondary/50 py-12 md:py-20 lg:py-24">
+            <div className="container px-4 sm:px-6 lg:px-8">
                  <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold font-headline">Exclusive Offers</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold font-headline">Exclusive Offers</h2>
                     <p className="mt-2 text-muted-foreground">Take advantage of our special promotions.</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {offers.map((offer, index) => (
                         <Card key={index}>
                             <CardHeader>
-                                <CardTitle className="font-headline">{offer.title}</CardTitle>
+                                <CardTitle className="font-headline text-lg">{offer.title}</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <p className="text-muted-foreground">{offer.description}</p>
@@ -137,7 +137,7 @@ export default function LandingPage() {
       </main>
 
        <footer className="border-t py-6">
-            <div className="container text-center text-muted-foreground text-sm">
+            <div className="container px-4 sm:px-6 lg:px-8 text-center text-muted-foreground text-sm">
                 © {new Date().getFullYear()} SKJ Jwellers. All Rights Reserved.
             </div>
        </footer>
