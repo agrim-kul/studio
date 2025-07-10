@@ -18,10 +18,42 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { transactions } from "@/lib/data";
 import type { Transaction } from "@/lib/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+
+function TransactionCard({ tx }: { tx: Transaction }) {
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      <div className="flex justify-between items-start">
+        <div>
+          <p className={`font-semibold ${tx.type === 'Buy' ? 'text-green-600' : 'text-red-600'}`}>
+            {tx.type} Gold
+          </p>
+          <p className="text-sm text-muted-foreground">
+            {new Date(tx.date).toLocaleDateString('en-IN', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+        </div>
+        <Badge variant={tx.status === 'Completed' ? 'default' : 'secondary'} className={`whitespace-nowrap ${tx.status === 'Completed' ? 'bg-green-100 text-green-800' : tx.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
+          {tx.status}
+        </Badge>
+      </div>
+      <Separator />
+      <div className="grid grid-cols-2 gap-2 text-sm">
+        <div className="text-muted-foreground">Amount (INR)</div>
+        <div className="text-right font-medium">₹{tx.amountINR.toLocaleString('en-IN')}</div>
+        <div className="text-muted-foreground">Amount (Gold)</div>
+        <div className="text-right font-medium">{tx.amountGold.toFixed(4)}g</div>
+      </div>
+    </div>
+  );
+}
 
 export function TransactionsClient() {
   const [filterType, setFilterType] = useState<string>("all");
@@ -66,52 +98,69 @@ export function TransactionsClient() {
             </SelectContent>
           </Select>
         </div>
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead className="text-right">Amount (INR)</TableHead>
-                <TableHead className="text-right">Amount (Gold)</TableHead>
-                <TableHead className="text-center">Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredTransactions.length > 0 ? (
-                filteredTransactions.map((tx: Transaction) => (
-                  <TableRow key={tx.id}>
-                    <TableCell>
-                      {new Date(tx.date).toLocaleDateString('en-IN', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                      })}
-                    </TableCell>
-                    <TableCell>
-                      <span className={`font-semibold ${tx.type === 'Buy' ? 'text-green-600' : 'text-red-600'}`}>
-                        {tx.type}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right">₹{tx.amountINR.toLocaleString('en-IN')}</TableCell>
-                    <TableCell className="text-right">{tx.amountGold.toFixed(4)}g</TableCell>
-                    <TableCell className="text-center">
-                        <Badge variant={tx.status === 'Completed' ? 'default' : 'secondary'} className={`whitespace-nowrap ${tx.status === 'Completed' ? 'bg-green-100 text-green-800' : tx.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
-                            {tx.status}
-                        </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
+        
+        {/* Mobile View */}
+        <div className="sm:hidden space-y-4">
+          {filteredTransactions.length > 0 ? (
+            filteredTransactions.map((tx: Transaction) => (
+              <TransactionCard key={tx.id} tx={tx} />
+            ))
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              No transactions found.
+            </div>
+          )}
+        </div>
+
+        {/* Desktop View */}
+        <div className="hidden sm:block">
+            <ScrollArea className="w-full whitespace-nowrap rounded-md border">
+            <Table>
+                <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center">
-                    No transactions found.
-                  </TableCell>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead className="text-right">Amount (INR)</TableHead>
+                    <TableHead className="text-right">Amount (Gold)</TableHead>
+                    <TableHead className="text-center">Status</TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </ScrollArea>
+                </TableHeader>
+                <TableBody>
+                {filteredTransactions.length > 0 ? (
+                    filteredTransactions.map((tx: Transaction) => (
+                    <TableRow key={tx.id}>
+                        <TableCell>
+                        {new Date(tx.date).toLocaleDateString('en-IN', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                        })}
+                        </TableCell>
+                        <TableCell>
+                        <span className={`font-semibold ${tx.type === 'Buy' ? 'text-green-600' : 'text-red-600'}`}>
+                            {tx.type}
+                        </span>
+                        </TableCell>
+                        <TableCell className="text-right">₹{tx.amountINR.toLocaleString('en-IN')}</TableCell>
+                        <TableCell className="text-right">{tx.amountGold.toFixed(4)}g</TableCell>
+                        <TableCell className="text-center">
+                            <Badge variant={tx.status === 'Completed' ? 'default' : 'secondary'} className={`whitespace-nowrap ${tx.status === 'Completed' ? 'bg-green-100 text-green-800' : tx.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
+                                {tx.status}
+                            </Badge>
+                        </TableCell>
+                    </TableRow>
+                    ))
+                ) : (
+                    <TableRow>
+                    <TableCell colSpan={5} className="h-24 text-center">
+                        No transactions found.
+                    </TableCell>
+                    </TableRow>
+                )}
+                </TableBody>
+            </Table>
+            </ScrollArea>
+        </div>
       </CardContent>
     </Card>
   );

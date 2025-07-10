@@ -50,11 +50,11 @@ export default function PurchaseConfirmationPage() {
                         <Separator />
                     </CardContent>
                     <CardFooter className="flex flex-col sm:flex-row gap-4">
-                        <Button variant="outline" className="w-full" onClick={() => router.push('/dashboard')}>
+                        <Button variant="outline" size="lg" className="w-full" onClick={() => router.push('/dashboard')}>
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Dashboard
                         </Button>
-                        <Button className="w-full" onClick={handleDownloadInvoice}>
+                        <Button size="lg" className="w-full" onClick={handleDownloadInvoice}>
                             <Download className="mr-2 h-4 w-4" />
                             Download GST Invoice
                         </Button>

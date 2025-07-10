@@ -33,7 +33,7 @@ function LoginForm() {
         <Input id="password" type="password" required />
       </div>
       <Link href="/dashboard">
-        <Button className="w-full">Login</Button>
+        <Button size="lg" className="w-full">Login</Button>
       </Link>
     </div>
   );
@@ -71,7 +71,7 @@ function SignupForm() {
           <Label htmlFor="password-signup">Password</Label>
           <Input id="password-signup" type="password" required />
         </div>
-        <Button className="w-full" onClick={handleCreateAccountClick}>Create Account</Button>
+        <Button size="lg" className="w-full" onClick={handleCreateAccountClick}>Create Account</Button>
       </form>
 
       <AlertDialog open={showKycDialog} onOpenChange={setShowKycDialog}>
