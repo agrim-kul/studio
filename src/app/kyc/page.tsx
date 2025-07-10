@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Upload } from 'lucide-react';
 
 function KycForm() {
   const router = useRouter();
@@ -60,7 +60,9 @@ function KycForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="pan-upload">Upload PAN Card</Label>
-            <Input id="pan-upload" type="file" required />
+            <div className="relative">
+              <Input id="pan-upload" type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20" required />
+            </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="aadhaar">Aadhaar Card Number</Label>
@@ -68,7 +70,9 @@ function KycForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="aadhaar-upload">Upload Aadhaar Card</Label>
-            <Input id="aadhaar-upload" type="file" required />
+             <div className="relative">
+              <Input id="aadhaar-upload" type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20" required />
+            </div>
           </div>
           <Button type="submit" className="w-full">
             Submit for Verification
