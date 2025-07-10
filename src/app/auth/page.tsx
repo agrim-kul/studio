@@ -9,7 +9,17 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Logo } from '@/components/logo';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Checkbox } from '@/components/ui/checkbox';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
 
 function LoginForm() {
   return (
@@ -31,9 +41,14 @@ function LoginForm() {
 
 function SignupForm() {
   const router = useRouter();
-  const [completeKyc, setCompleteKyc] = useState(false);
+  const [showKycDialog, setShowKycDialog] = useState(false);
 
-  const handleSignup = () => {
+  const handleCreateAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevent default form submission
+    setShowKycDialog(true);
+  };
+
+  const handleKycChoice = (completeKyc: boolean) => {
     if (completeKyc) {
       router.push('/kyc?from=signup');
     } else {
@@ -42,30 +57,38 @@ function SignupForm() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="name">Name</Label>
-        <Input id="name" type="text" placeholder="Ananya Sharma" required />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="email-signup">Email</Label>
-        <Input id="email-signup" type="email" placeholder="m@example.com" required />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="password-signup">Password</Label>
-        <Input id="password-signup" type="password" required />
-      </div>
-      <div className="flex items-center space-x-2">
-        <Checkbox id="kyc" onCheckedChange={(checked) => setCompleteKyc(!!checked)} />
-        <label
-          htmlFor="kyc"
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        >
-          I want to complete my KYC now (optional)
-        </label>
-      </div>
-      <Button className="w-full" onClick={handleSignup}>Create Account</Button>
-    </div>
+    <>
+      <form className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" type="text" placeholder="Ananya Sharma" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email-signup">Email</Label>
+          <Input id="email-signup" type="email" placeholder="m@example.com" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="password-signup">Password</Label>
+          <Input id="password-signup" type="password" required />
+        </div>
+        <Button className="w-full" onClick={handleCreateAccountClick}>Create Account</Button>
+      </form>
+
+      <AlertDialog open={showKycDialog} onOpenChange={setShowKycDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Complete Your KYC?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Completing your KYC now allows you to start investing right away. You can also choose to do this later from your profile.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => handleKycChoice(false)}>Skip for Now</AlertDialogCancel>
+            <AlertDialogAction onClick={() => handleKycChoice(true)}>Complete KYC</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
 
@@ -78,7 +101,9 @@ export default function AuthenticationPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/">
-            <Logo />
+            <span className="cursor-pointer">
+              <Logo />
+            </span>
           </Link>
         </div>
         <Tabs defaultValue={defaultTab} className="w-full">
