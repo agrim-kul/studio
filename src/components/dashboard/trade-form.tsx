@@ -12,7 +12,7 @@ import { Banknote, Landmark, Wallet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { userProfile } from '@/lib/data';
 
-const LIVE_GOLD_PRICE = 6950.75; // per gram
+const LIVE_GOLD_PRICE = 7285.50; // per gram
 
 const paymentOptions = [
     { id: 'upi', name: 'UPI', icon: <Banknote className="h-5 w-5" /> },

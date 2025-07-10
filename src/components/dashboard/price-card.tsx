@@ -5,12 +5,12 @@ import { TrendingUp } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export function PriceCard() {
-  const [price, setPrice] = useState(6950.75);
+  const [price, setPrice] = useState(7285.50);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPrice(prevPrice => prevPrice + (Math.random() - 0.5) * 10);
+      setPrice(prevPrice => prevPrice + (Math.random() - 0.5) * 5); // Reduced fluctuation
       setLastUpdated(new Date());
     }, 3000);
     
