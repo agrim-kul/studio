@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 
 const teamMembers = [
-  { name: "Suresh Kumar Jain", role: "Founder & CEO", avatar: "SJ", image: "https://i.ibb.co/NddQq0sv/file-000000004f9061f5b7ecd6e4f76cbdc8-1.png", hint: "male portrait" },
+  { name: "Suresh Kumar Jain", role: "Founder & CEO", avatar: "SJ", image: "https://placehold.co/100x100.png", hint: "male portrait" },
   { name: "Priya Jain", role: "Head of Design", avatar: "PJ", image: "https://placehold.co/100x100.png", hint: "female portrait" },
   { name: "Amit Singh", role: "Chief Financial Officer", avatar: "AS", image: "https://placehold.co/100x100.png", hint: "male portrait" },
 ];
